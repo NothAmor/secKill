@@ -1,7 +1,7 @@
 package app
 
 import (
-	"secKill/app/handler"
+	user "secKill/app/handler/user"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,9 +10,9 @@ func RegisterRouter(engine *gin.Engine) {
 	v1 := engine.Group("/v1")
 
 	// 用户
-	user := v1.Group("/user")
-	user.POST("/register", handler.Register)
-	user.POST("/login")
+	userGroup := v1.Group("/user")
+	userGroup.POST("/register", user.Register)
+	userGroup.POST("/login", user.Login)
 
 	// 秒杀商品
 	product := v1.Group("/product")
