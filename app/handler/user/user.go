@@ -25,7 +25,7 @@ func Register(c *gin.Context) {
 	reply := proto.CreateUserResp{}
 	err := logic.Register(ctx, args, &reply)
 	if err != nil {
-		logger.Ex(ctx, tag, "logic.Register failed. err:[%+v]", err)
+		logger.Ex(ctx, tag, "logic.Register failed. args:[%+v], err:[%+v]", args, err)
 		c.JSON(http.StatusOK, secgin.Error(secgin.SecError{Msg: err.Error()}, nil))
 		return
 	}
@@ -47,7 +47,7 @@ func Login(c *gin.Context) {
 	reply := &proto.UserLoginResp{}
 	err := logic.Login(ctx, args, reply)
 	if err != nil {
-		logger.Ex(ctx, tag, "Login failed. err:[%+v]", err)
+		logger.Ex(ctx, tag, "Login failed. args:[%+v], err:[%+v]", args, err)
 		c.JSON(http.StatusOK, secgin.Error(secgin.SecError{Msg: err.Error()}, nil))
 		return
 	}

@@ -6,12 +6,12 @@ import (
 )
 
 func GetUsersByName(name string) (users []entity.User, err error) {
-	common.DB.Where("name = ?", name).Find(&users)
+	common.DB.Where("username = ?", name).Find(&users)
 	return
 }
 
 func GetUsersByNameAndPassword(name, password string) (users []entity.User, err error) {
-	common.DB.Where("name = ? and password = ?", name, password).Find(&users)
+	common.DB.Where("username = ? and password = ?", name, password).Find(&users)
 	return
 }
 

@@ -3,10 +3,14 @@ package user
 import (
 	"context"
 	"errors"
+	"secKill/app/common"
 	"secKill/app/entity"
 	proto "secKill/app/proto/user"
 	mysqlRepo "secKill/app/repository/mysqlRepo"
 	"secKill/utils/logger"
+	"time"
+
+	"github.com/google/uuid"
 )
 
 func Register(ctx context.Context, args proto.CreateUserReq, reply *proto.CreateUserResp) (err error) {
@@ -24,8 +28,12 @@ func Register(ctx context.Context, args proto.CreateUserReq, reply *proto.Create
 	}
 
 	err = mysqlRepo.CreateUser(&entity.User{
-		Name:     args.Name,
-		Password: args.Password,
+		UUID:      uuid.New().String(),
+		Username:  args.Name,
+		Password:  args.Password,
+		Enable:    common.USER_ENABLED,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 	})
 	if err != nil {
 		logger.Ex(ctx, tag, "createUser failed. name:[%+v], err:[%+v]", args.Name, err)
@@ -49,6 +57,6 @@ func Login(ctx context.Context, args proto.UserLoginReq, reply *proto.UserLoginR
 		return
 	}
 
-	reply.Token = users[0].Name
+	reply.Token = users[0].Username
 	return
 }
