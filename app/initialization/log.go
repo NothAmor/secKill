@@ -21,7 +21,9 @@ func initLog() {
 		ReportTimestamp: logConfig.Timestamp,      // 是否显示时间戳
 		ReportCaller:    logConfig.Caller,         // 是否显示调用信息
 		TimeFunction:    log.NowUTC,               // 时间函数
-		Formatter:       log.JSONFormatter,        // 日志格式
+		Formatter:       log.TextFormatter,        // 日志格式
 		CallerFormatter: log.ShortCallerFormatter, // 调用信息格式
 	})
+
+	common.Logger.SetCallerOffset(2)
 }

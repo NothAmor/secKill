@@ -17,7 +17,7 @@ func GetTraceIdKey() string {
 // InitTraceNode
 func GenLogTraceMetadata() *TraceNode {
 	t := NewTraceNode()
-	t.Set("x_trace_id", `"`+uuid.New().String()+`"`)
+	t.Set("x_trace_id", uuid.New().String())
 	return t
 }
 
